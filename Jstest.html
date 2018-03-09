@@ -1,0 +1,55 @@
+<html>
+  <title>JavaScript functions</title>
+  <h1>This is a test page for JS functions<h1>
+  <script>
+  /*this function here is to solve a problem:
+  A large package can hold five items, while the small package can hold
+  only one item. All items must be place in packages and used packages have
+  to be filled up completely
+  Write a function that calculates the minimum number of packages needed to
+  hold a given number of items. If it's not possible to meet the requirements, return -1
+  */
+  function canPackage (items, lg, sm){
+    const usedLarge = lg > 0 ? Math.min(Math.floor(items/5), lg) : lg
+    items -= usedLarge * 5;
+    const usedSmall = sm > 0 ? Math.min(Math.floor(items/1), sm) : sm
+    items -= usedSmall * 1 ;
+    return items > 0 ? -1 : usedSmall + usedLarge ;
+  }
+
+  //window.alert(canPackage(22,3,7));
+
+  /*Implement the validate function, which accepts a username and returns true if
+  it's acceptable and false if it's not
+  A username is valid if it satisfies the following rules:
+  The username must be at least 6 characters long and not exceed 16 characters
+  The username must contain only letters,numbers and optionally one hyphen
+  The username must start with a letter, and must not end with a hyphen.
+  */
+
+  function validate(username){
+    if (username.length>=6 && username.length<=16 && username.replace(/[^-]/g,"").length<2){
+      const islegit = /[a-zA-Z][a-zA-Z0-9-]{4,14}[a-zA-Z0-9]$/
+      return islegit.test(username);
+    }else{
+      return false;
+    }
+  }
+
+//  window.alert(validate("bfdfd2sa3"));
+
+  //the next function will show off ES6 ways of JavaScript
+  const testarray = [1995,2002,1996,2000,1987,1982,1988,1999,1989]
+  const ages = testarray.map(x=> (new Date()).getFullYear()-x);
+  //window.alert(ages);
+  const logofdata = ("this is some data from some log");
+  const logData = () => {console.log(logofdata); }
+  logData();
+
+  const print = text => (text);
+  const print2 = function(text) {
+    return text;
+  }
+
+  </script>
+</html>

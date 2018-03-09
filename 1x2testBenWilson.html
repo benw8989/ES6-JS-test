@@ -1,0 +1,92 @@
+
+<html>
+<h1> Test Ben Wilson </h1>
+<script>
+
+const solveTask = (obj) => {
+    const unique = [];
+    const repeats = [];
+    obj.forEach((i) => {
+      unique.push(i.id);
+      repeats[i.id] = repeats[i.id] ? repeats[i.id] + 1 : 1;
+    });
+    const uniq = [...new Set(unique)].map(id => ({id}));
+    const value = Object.keys(repeats).reduce((v, k) => {
+      return v * repeats[k];
+    },1);
+    return (new Array(value).fill(uniq));
+  };
+
+/* function explanation
+Line 6 defines the function and that it will take an 'input' arguments.
+Line 7 declares an array that will be used to count uniques in.
+Line 8 declares an array that will show how many repeats of an Id
+Line 9 iterates all objects pussed in from the array of objects
+Line 10 push all Id values onto this array
+Line 11 puts Id as a key then the number of times it appears, it does this by; if not already there set as 1,
+if already there increase by 1. e.g. if 3 objects with id 4 repeats [4,3]
+Line 13 use the list of Ids we have in the unique array to get the maximum size list of ids, which will just be the
+list of all unique id numbers, easily done with the help of ES6 Set object. A Set object will only allow unique values,
+and can be constructed from a normaly array. So for instance new Set([1,1,1,2]), we'd get a Set(1,2).
+Then you can use destructuring on that Set object to get the Set's value back out as an array. This is because they're
+currently 'inside' the Set object, making them harder to work with. So in hindsight [...new Set(array)], we feed an Array
+into set, getting the unique values.
+Then using the map function that for each unique value, will take it and then return and object with the id property set as that value.
+Line 14 first of all get the keys of the repeats object (this is the id), then reduce over that array of keys. The v is the running value
+of multiplication between them together. While k is the current key of repeats, so the current id's repeats that we are multiplying by.
+Line 16 just states that the first running value is 1. This is just because 1 * n is n, making it easier, this is how many arrays are needed.
+Line 17 just returns the final array structure i.e [id 1, id 1, id 2, id 3] = [id 1. id 2, id 3] by how many times it can be calculated
+by the giving objects which is calculated by value. so for the example in line above value == 2 so 2 lots of the final array structure would
+be given as the output this would be [[id 1,id 2,id 3],[id 1,id 2,id 3]]
+*/
+
+/*
+from now onwards it's just testing. I know that you could use a test suite like mocha and chai to run tests(I have looked into it and will be using it in the future)
+*/
+//These are objects created for testing the function
+  const o1 = { id: 1 };
+  const o2 = { id: 1 };
+  const o3 = { id: 2 };
+  const o4 = { id: 2 };
+  const o5 = { id: 3 };
+  const o6 = { id: 4 };
+  const o7 = { id: 4 };
+
+console.log("basic test 1");
+console.log("Expected output");
+console.log([[{id: 1},{id: 2}]]);
+console.log("actual output");
+console.log(solveTask([o1,o3]));
+console.log("");
+
+console.log("basic test 2");
+console.log("Expected output");
+console.log([[{id: 1}],[{id: 1}]]);
+console.log("actual output");
+console.log(solveTask([o1,o2]));
+console.log("");
+
+console.log("basic test 3");
+console.log("Expected output");
+console.log([[{id: 1},{id: 2}],[{id: 1},{id: 2}]]);
+console.log("actual output");
+console.log(solveTask([o1,o2,o3]));
+console.log("");
+
+console.log("basic test 4");
+console.log("Expected output");
+console.log([[{id: 1},{id: 2},{id: 4}],[{id: 1},{id: 2},{id: 4}]]);
+console.log("actual output");
+console.log(solveTask([o1,o2,o3,o6]));
+console.log("");
+
+console.log("basic test 5");
+console.log("Expected output");
+console.log([[{id: 1},{id: 2},{id: 3},{id: 4}],[{id: 1},{id: 2},{id: 3},{id: 4}],[{id: 1},{id: 2},{id: 3},{id: 4}],[{id: 1},{id: 2},{id: 3},{id: 4}]
+,[{id: 1},{id: 2},{id: 3},{id: 4}],[{id: 1},{id: 2},{id: 3},{id: 4}],[{id: 1},{id: 2},{id: 3},{id: 4}],[{id: 1},{id: 2},{id: 3},{id: 4}]]);
+console.log("actual output");
+console.log(solveTask([o1,o2,o3,o4,o5,o6,o7]));
+console.log("");
+</script>
+
+</html>
